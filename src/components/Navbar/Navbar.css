@@ -1,0 +1,25 @@
+nav{
+
+    border-bottom: 2px solid lightgrey;
+}
+
+.navbar_list{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+  
+}
+
+.navbar_list a{
+
+    margin: 5px 30px;
+    text-decoration: none;
+}
+
+.navbar_list a.active{
+
+    font-weight: 500;
+    color: orangered;
+}
