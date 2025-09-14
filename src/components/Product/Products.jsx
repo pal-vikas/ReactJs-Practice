@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import "./Products.css"
 import SingleProduct from './SingleProduct'
 
@@ -9,20 +9,15 @@ function Products() {
       <h1>Products Page</h1>
       <ul className='project_list'>
         <li>
-          <Link to={"/products/1"}>Project 1</Link>
+          <Link style={{textDecoration:"none"}} to={"/products/1"}>Project 1</Link>
         </li>
         <li>
-          <Link to={"/products/2"}>Project 2</Link>
+          <Link style={{textDecoration:"none"}} to={"/products/2"}>Project 2</Link>
         </li>
         <li>
-          <Link to={"/products/3"}>Project 3</Link>
+          <Link style={{textDecoration:"none"}} to={"/products/3"}>Project 3</Link>
         </li>
       </ul>
-
-        {
-          <SingleProduct/>
-        }
-
     </div>
   )
 }
