@@ -5,16 +5,22 @@ function Sellers() {
 
   useEffect(()=>{
 
+
+    // document.title=`Your name is ${name}`;
+    // const heading = document.querySelector("h4");
+    // heading.style.color="red";
     console.log("Mounting Sellers Component......");
-  },[])
+    return ()=>{
+            console.log("Unmounting Sellers Component......");
+    }
+  },[name])
 
   return (
-    <div>
+    <>
                 <h4>Admin Sellers Page</h4>
-                <h5>{name}</h5>
-                <input type="text" name='name' value={name} onChange={(e)=>{setName(e.target.value)}}  />
+                <input type="text" name='name' value={name} onChange={(e)=>{setName(e.target.value)}} placeholder='Enter Your Name '  />
                 
-    </div>
+    </>
   )
 }
 
