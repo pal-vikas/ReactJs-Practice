@@ -19,24 +19,40 @@ function Sellers() {
   // },[name])
 
   useEffect(()=>{
-      setIsLoading(true);
-      axios.get('https://jsonplaceholder.typicode.com/users')
-      .then((res)=>{
-        setUsers(res.data)
-        setIsLoading(false);
-      })
-      .catch((error)=>{
-        setIsLoading(false)
-        setErrors(error.message)
-      });
+    fetchUser();
+      // setIsLoading(true);
+      // axios.get('https://jsonplaceholder.typicode.com/users')
+      // .then((res)=>{
+      //   setUsers(res.data)
+      //   console.log()
+      //   setIsLoading(false);
+      // })
+      // .catch((error)=>{
+      //   setIsLoading(false)
+      //   setErrors(error.message)
+      // });
       
   },[]);
 
+  const fetchUser = async ()=>{
+
+      try{
+       setIsLoading(true);
+       const res = await axios.get('https://jsonplaceholder.typicode.com/users')
+        setUsers(res.data)
+        console.log(res.data)
+        setIsLoading(false);
+
+      }catch(error){
+       setIsLoading(false)
+        setErrors(error.message)
+      }
+  }
   return (
     <>
                 <h4>Admin Sellers Page</h4>
-                <input type="text" name='name' value={name} onChange={(e)=>{setName(e.target.value)}} placeholder='Enter Your Name '  /><br/>
-                {errors && <em>{errors}</em>}
+                <input type="text" name='name' value={name} onChange={(e)=>{setName(e.target.value)}} placeholder='Enter Your Name '  /><br/><br/>
+                {errors && <em style={{color:"red", fontWeight:"bold"}}>{errors}</em>}
                 {isLoading && <Loader/>}
                 {users.map((user)=>(
                     <p key={user.id}>{user.name}</p>
