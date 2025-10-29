@@ -4,7 +4,7 @@ import Loader from '../common/Loader';
 
 
 function Sellers() {
-  // const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors]= useState("");
@@ -40,7 +40,6 @@ function Sellers() {
        setIsLoading(true);
        const res = await axios.get('https://jsonplaceholder.typicode.com/users')
         setUsers(res.data)
-        console.log(res.data)
         setIsLoading(false);
 
       }catch(error){
@@ -48,10 +47,30 @@ function Sellers() {
         setErrors(error.message)
       }
   }
+
+  const addUser = ()=>{
+
+    const newUser ={
+      name,
+      id:users.length +1,
+    };
+    setUsers([newUser, ...users]); // 1
+    axios.post("https://jsonplaceholder.typicode.com/users",newUser)
+    .then((res)=>{
+      setUsers([res.data, ...users]) // 2
+      setName("");
+    }).catch((errors)=>{
+      setErrors(errors.message)
+      setUsers(users)
+    })
+  }
+
   return (
     <>
-                <h4>Admin Sellers Page</h4>
-                <input type="text" name='name' value={name} onChange={(e)=>{setName(e.target.value)}} placeholder='Enter Your Name '  /><br/><br/>
+                <h1>Admin Sellers Page</h1>
+                <input type="text" name='name' value={name} onChange={(e)=>{setName(e.target.value)}} placeholder='Enter Your Name '/>
+                <button onClick={addUser}>Add User</button>
+                <br/><br/>
                 {errors && <em style={{color:"red", fontWeight:"bold"}}>{errors}</em>}
                 {isLoading && <Loader/>}
                 {users.map((user)=>(
