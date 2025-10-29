@@ -7,7 +7,7 @@ function Sellers() {
   // const [name, setName] = useState("");
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [errors, setErrors]= useState("");
   // useEffect(()=>{
   //   // document.title=`Your name is ${name}`;
   //   // const heading = document.querySelector("h4");
@@ -23,17 +23,20 @@ function Sellers() {
       axios.get('https://jsonplaceholder.typicode.com/users')
       .then((res)=>{
         setUsers(res.data)
-        console.log(res.data)
         setIsLoading(false);
       })
-      .catch((error)=>console.log(error));
+      .catch((error)=>{
+        setIsLoading(false)
+        setErrors(error.message)
+      });
       
   },[]);
 
   return (
     <>
                 <h4>Admin Sellers Page</h4>
-                <input type="text" name='name' value={name} onChange={(e)=>{setName(e.target.value)}} placeholder='Enter Your Name '  />
+                <input type="text" name='name' value={name} onChange={(e)=>{setName(e.target.value)}} placeholder='Enter Your Name '  /><br/>
+                {errors && <em>{errors}</em>}
                 {isLoading && <Loader/>}
                 {users.map((user)=>(
                     <p key={user.id}>{user.name}</p>
