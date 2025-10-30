@@ -8,6 +8,7 @@ function Sellers() {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors]= useState("");
+  const [email, setEmail] = useState("");
   // useEffect(()=>{
   //   // document.title=`Your name is ${name}`;
   //   // const heading = document.querySelector("h4");
@@ -52,6 +53,7 @@ function Sellers() {
 
     const newUser ={
       name,
+      email,
       id:users.length +1,
     };
     setUsers([newUser, ...users]); // 1
@@ -59,6 +61,7 @@ function Sellers() {
     .then((res)=>{
       setUsers([res.data, ...users]) // 2
       setName("");
+      setEmail("");
     }).catch((errors)=>{
       setErrors(errors.message)
       setUsers(users)
@@ -69,12 +72,13 @@ function Sellers() {
     <>
                 <h1>Admin Sellers Page</h1>
                 <input type="text" name='name' value={name} onChange={(e)=>{setName(e.target.value)}} placeholder='Enter Your Name '/>
+                <input type="email" name='email' value={email} onChange={(e)=>{setEmail(e.target.value)}} placeholder='Enter Your Email' />
                 <button onClick={addUser}>Add User</button>
                 <br/><br/>
                 {errors && <em style={{color:"red", fontWeight:"bold"}}>{errors}</em>}
                 {isLoading && <Loader/>}
                 {users.map((user)=>(
-                    <p key={user.id}>{user.name}</p>
+                    <p key={user.id}>{user.name}, {user.email}</p>
                 ))
                 }
     </>
