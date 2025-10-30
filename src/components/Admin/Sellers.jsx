@@ -15,9 +15,6 @@ function Sellers() {
   //   // heading.style.color="red";
   //   console.log("Mounting Sellers Component......");
   //   return ()=>{
-  //           console.log("Unmounting Sellers Component......");
-  //   }
-  // },[name])
 
   useEffect(()=>{
     fetchUser();
