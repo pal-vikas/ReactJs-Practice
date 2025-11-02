@@ -49,6 +49,16 @@ const fetchUser = async ()=>{
   }
 }
 
+ const deleteUser =(id)=>{
+
+      setUsers(users.filter((u)=> u.id!==id))
+      axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+      .catch((errors)=>{
+        setErrors(errors.email);
+        setName(users, ...users);
+      })
+ }
+
   return (
     <div>
                 <h1>Admin Sales Page</h1>
@@ -58,7 +68,21 @@ const fetchUser = async ()=>{
                 {isLoading && <Loader/>}
                 {errors && <em>{errors}</em>}
                {users.map((user)=>(
-                <p key={user.id}>{user.name}, {user.email}</p>
+                <table key={user.id}>
+                  <thead>
+                    <tr key={user.id}>
+                      <td>
+                          <p key={user.id}>{user.name}, {user.email}</p>
+                      </td>
+
+                      </tr>
+                      <tr>
+                      <td>
+                        <button onClick={()=>{deleteUser(user.id)}}>Delete</button>
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
                ))}
     </div>
   )
