@@ -53,6 +53,7 @@ function Sellers() {
       email,
       id:users.length +1,
     };
+    
     setUsers([newUser, ...users]); // 1
     axios.post("https://jsonplaceholder.typicode.com/users",newUser)
     .then((res)=>{
@@ -65,6 +66,16 @@ function Sellers() {
     })
   }
 
+
+  const deleteUser =(id)=>{
+      setUsers(users.filter((u)=> u.id!==id))
+      axios.delete('https://jsonplaceholder.typicode.com/users/${user.id}')
+      .catch((errors)=>{
+        setErrors(errors.message);
+        setUsers(users);
+      })
+  }
+
   return (
     <>
                 <h1>Admin Sellers Page</h1>
@@ -74,10 +85,22 @@ function Sellers() {
                 <br/><br/>
                 {errors && <em style={{color:"red", fontWeight:"bold"}}>{errors}</em>}
                 {isLoading && <Loader/>}
-                {users.map((user)=>(
-                    <p key={user.id}>{user.name}, {user.email}</p>
-                ))
-                }
+                <table>
+                  <thead>
+                      {users.map((user)=>(
+                        <tr key={user.id}>
+                          <td>
+                            <p key={user.id}>{user.name}, {user.email}</p>
+                          </td>
+                          <td>
+                            <button onClick={()=>{deleteUser(user.id)}}>Delete User</button>
+                          </td>
+                        </tr>
+                      ))
+                    }
+                  </thead>
+                </table>
+
     </>
   )
 }
