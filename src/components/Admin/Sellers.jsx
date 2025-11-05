@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Loader from '../common/Loader';
+import apiClient from '../../utils/api-client';
 
 
 function Sellers() {
@@ -36,7 +37,7 @@ function Sellers() {
 
       try{
        setIsLoading(true);
-       const res = await axios.get('https://jsonplaceholder.typicode.com/users')
+       const res = await apiClient.get('/users')
         setUsers(res.data)
         setIsLoading(false);
 
@@ -55,7 +56,7 @@ function Sellers() {
     };
     
     setUsers([newUser, ...users]); // 1
-    axios.post("https://jsonplaceholder.typicode.com/users",newUser)
+    apiClient.post("/users",newUser)
     .then((res)=>{
       setUsers([res.data, ...users]) // 2
       setName("");
@@ -69,7 +70,7 @@ function Sellers() {
 
   const deleteUser =(id)=>{
       setUsers(users.filter((u)=> u.id!==id))
-      axios.delete('https://jsonplaceholder.typicode.com/users/${user.id}')
+      apiClient.delete('/users/${user.id}')
       .catch((errors)=>{
         setErrors(errors.message);
         setUsers(users);
@@ -82,7 +83,7 @@ function Sellers() {
       name:user.name + "  Updated"
     }
     setUsers(users.map((u)=> u.id ===user.id ? UpdatedUser : u))
-    axios.patch(`https://jsonplaceholder.typicode.com/users/${user}`, UpdatedUser)
+    apiClient.patch(`/users/${user}`, UpdatedUser)
      .catch((errors)=>{
         setErrors(errors.message);
         setUsers(users);
