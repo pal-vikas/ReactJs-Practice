@@ -74,13 +74,11 @@ const fetchUser = async ()=>{
                       <td>
                           <p key={user.id}>{user.name}, {user.email}</p>
                       </td>
-
-                      </tr>
-                      <tr>
+                     
                       <td>
                         <button onClick={()=>{deleteUser(user.id)}}>Delete</button>
-                      </td>
-                    </tr>
+                    </td>
+                     </tr>
                   </thead>
                 </table>
                ))}
