@@ -76,6 +76,19 @@ function Sellers() {
       })
   }
 
+  const updateUser =(user)=>{
+    const UpdatedUser ={
+      ...user,
+      name:user.name + "  Updated"
+    }
+    setUsers(users.map((u)=> u.id ===user.id ? UpdatedUser : u))
+    axios.patch(`https://jsonplaceholder.typicode.com/users/${user}`, UpdatedUser)
+     .catch((errors)=>{
+        setErrors(errors.message);
+        setUsers(users);
+      })
+  }
+
   return (
     <>
                 <h1>Admin Sellers Page</h1>
@@ -94,6 +107,9 @@ function Sellers() {
                           </td>
                           <td>
                             <button onClick={()=>{deleteUser(user.id)}}>Delete User</button>
+                          </td>
+                           <td>
+                            <button onClick={()=>{updateUser(user)}}>Update User</button>
                           </td>
                         </tr>
                       ))
